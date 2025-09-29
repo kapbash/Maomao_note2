@@ -105,7 +105,7 @@ const Notes = () => {
     const itemData = getItemData()
     
     if (editingItem !== null) {
-      editItem(editingItem, itemData)
+      editItem(editingItem.id, itemData)
     } else {
       addItem(itemData)
     }
@@ -114,12 +114,12 @@ const Notes = () => {
     setExpandedIndex(null)
   }
 
-  const handleEditItem = (item, index) => {
-    openEditModal(item, index)
+  const handleEditItem = (item) => {
+    openEditModal(item)
   }
 
-  const handleDeleteItem = (index) => {
-    deleteItem(index)
+  const handleDeleteItem = (itemId) => {
+    deleteItem(itemId)
     setExpandedIndex(null)
   }
 

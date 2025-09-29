@@ -95,18 +95,19 @@ export const useCategories = () => {
     setSelectedCategory(updatedSelectedCategory)
   }
 
-  const editItem = (itemIndex, updatedItem) => {
+  const editItem = (itemId, updatedItem) => {
     if (!selectedCategory) return
 
     const itemWithTimestamp = {
       ...updatedItem,
+      id: itemId, // Preserve the original ID
       updatedAt: new Date().toISOString()
     }
 
     const updatedCategories = categories.map(cat => {
       if (cat.id === selectedCategory.id) {
-        const updatedItems = cat.items.map((item, idx) =>
-          idx === itemIndex ? itemWithTimestamp : item
+        const updatedItems = cat.items.map(item =>
+          item.id === itemId ? itemWithTimestamp : item
         )
         return { 
           ...cat, 
@@ -124,14 +125,14 @@ export const useCategories = () => {
     setSelectedCategory(updatedSelectedCategory)
   }
 
-  const deleteItem = (itemIndex) => {
+  const deleteItem = (itemId) => {
     if (!selectedCategory) return
 
     const updatedCategories = categories.map(cat => {
       if (cat.id === selectedCategory.id) {
         return {
           ...cat,
-          items: cat.items.filter((_, idx) => idx !== itemIndex),
+          items: cat.items.filter(item => item.id !== itemId),
           updatedAt: new Date().toISOString()
         }
       }

@@ -18,9 +18,9 @@ const ItemList = ({
   onDeleteItem,
   selectedTag 
 }) => {
-  const toggleExpand = (index) => {
+  const toggleExpand = (itemId) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setExpandedIndex(expandedIndex === index ? null : index);
+    setExpandedIndex(expandedIndex === itemId ? null : itemId);
   };
 
   if (!selectedCategory) {
@@ -48,12 +48,12 @@ const ItemList = ({
       ) : (
         <FlatList
           data={filteredItems}
-          keyExtractor={(item, idx) => item.id || idx.toString()}
+          keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => {
-            const expanded = expandedIndex === index;
+            const expanded = expandedIndex === item.id;
             return (
               <TouchableOpacity
-                onPress={() => toggleExpand(index)}
+                onPress={() => toggleExpand(item.id)}
                 activeOpacity={0.8}
               >
                 <View style={styles.itemBox}>
@@ -76,10 +76,10 @@ const ItemList = ({
 
                       {/* Item actions */}
                       <View style={styles.itemActions}>
-                        <TouchableOpacity onPress={() => onEditItem(item, index)} style={styles.editBtn}>
+                        <TouchableOpacity onPress={() => onEditItem(item)} style={styles.editBtn}>
                           <Ionicons name="create-outline" size={18} color="#fff" />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => onDeleteItem(index)} style={styles.deleteBtn}>
+                        <TouchableOpacity onPress={() => onDeleteItem(item.id)} style={styles.deleteBtn}>
                           <Ionicons name="trash-outline" size={18} color="#fff" />
                         </TouchableOpacity>
                       </View>

@@ -17,11 +17,11 @@ export const useItemModal = () => {
     setEditingItem(null)
   }
 
-  const openEditModal = (item, index) => {
+  const openEditModal = (item) => {
     setItemName(item.name)
     setItemTags(item.tags.join(", "))
     setItemDesc(item.description)
-    setEditingItem(index)
+    setEditingItem(item)
     setModalVisible(true)
   }
 
